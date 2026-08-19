@@ -44,6 +44,10 @@ button{cursor:pointer}
 .category-card{min-height:400px;display:flex;align-items:end;padding:38px;background-size:cover;background-position:center;position:relative;overflow:hidden}
 .category-card:before{content:"";position:absolute;inset:0;background:linear-gradient(transparent 35%,rgba(0,0,0,.7))}
 .clothes-card{background-image:url("https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?auto=format&fit=crop&w=1100&q=85")}
+/* Category images supplied for Iqra Collection */
+.category-grid .category-card:nth-child(1){background-image:url("assets/categories/unstiched.webp")}
+.category-grid .category-card:nth-child(2){background-image:url("assets/products/Women’s Pink Printed Jersey 2-Piece Sleepwear Set (4).jpeg")}
+.category-grid .category-card:nth-child(3){background-image:url("assets/categories/co-ord.webp")}
 .shoes-card{background-image:url("https://images.unsplash.com/photo-1543163521-1bf539c55dd2?auto=format&fit=crop&w=1100&q=85")}
 .category-card div{position:relative;color:#fff}.category-card p{margin:0;font-size:12px;letter-spacing:.1em}.category-card h3{font:600 48px/1 "Cormorant Garamond",serif;margin:6px 0 10px}.category-card span{font-size:13px}
 .filter-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px}
