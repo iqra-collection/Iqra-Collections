@@ -26,6 +26,22 @@ const products = [
     description: "Stay comfortable and stylish with this 2-Piece Printed Jersey Sleepwear Set, designed for girls and women. Made from soft and comfortable jersey fabric, this lounge wear set is perfect for sleeping, relaxing at home, or casual lounging. The set includes a printed round-neck sleep shirt and matching sleep trouser in classic black. Its relaxed fit provides comfort and ease of movement throughout the day or night.\n\nFabric: Soft Jersey\nDesign: Printed\nNeck Type: Round Neck\nColor: Black\nStyle: Lounge Wear / Sleepwear\nSuitable For: Girls & Women\nSet Includes: 1 Sleep Shirt + 1 Sleep Trouser\nProduct Code: MZ2098202790DK\n\nSize Guide:\nMedium — Chest 18 inches, Shirt Length 26 inches\nLarge — Chest 21 inches, Shirt Length 28 inches\nExtra Large — Chest 23 inches, Shirt Length 30 inches",
     new: true,
     sale: true
+  },
+  {
+    id: 2,
+    name: "Women’s Pink Printed Jersey 2-Piece Sleepwear Set | Round Neck Lounge Wear",
+    category: "Ready To Wear",
+    sub: "Lounge Wear",
+    price: 3000,
+    originalPrice: 3529,
+    discountPercent: 15,
+    img: "assets/products/womens-pink-printed-jersey-sleepwear.jpg",
+    sizes: ["Medium", "Large", "Extra Large"],
+    colors: ["Pink"],
+    productCode: "MZ2098202803DK",
+    description: "Relax in comfort and style with this 2-Piece Pink Printed Jersey Sleepwear Set, specially designed for girls and women. Made from soft and comfortable jersey fabric, this lounge wear set is perfect for sleeping, relaxing at home, or everyday lounging. The set includes a printed round-neck sleep shirt paired with comfortable matching trousers. Its soft fabric and relaxed fit provide excellent comfort and ease of movement.\n\nFabric: Soft Jersey\nPattern: Printed\nNeck Type: Round Neck\nColor: Pink\nStyle: Lounge Wear / Sleepwear\nSuitable For: Girls & Women\nNumber of Pieces: 2 Pcs\nPackage Includes: 1 × Sleep Shirt + 1 × Sleep Trouser\nAvailable Sizes: Medium, Large, Extra Large\nProduct Code: MZ2098202803DK\n\nSize Guide:\nMedium — Chest 18 inches, Shirt Length 26 inches\nLarge — Chest 21 inches, Shirt Length 28 inches\nExtra Large — Chest 23 inches, Shirt Length 30 inches\nTrouser Length: 38–40 inches\n\nAdditional Measurements:\nShirt Length: Up to 30 inches\nShirt Chest: Up to 23 inches\nShirt Shoulder: 15 inches\nArm Length: 11 inches\nTrouser Length: 39 inches\nTrouser Waist: 36 inches\nTrouser Hip: 23 cm\n\nWhy You’ll Love It:\nSoft and comfortable jersey fabric\nStylish printed design\nComfortable round-neck shirt\nPerfect for sleeping and lounging\nRelaxed fit for easy movement\nSuitable for girls and women\n\nImportant Note:\nThere may be a 1–3 cm variation in measurements due to manual measuring. Slight color differences may also occur due to lighting conditions and different monitor or screen settings.",
+    new: true,
+    sale: true
   }
 ];
 
@@ -130,7 +146,7 @@ function orderFromModal(id){
   const p=products.find(x=>x.id===id);
   if(!p) return;
   const size=document.getElementById("sizeSelect").value,color=document.getElementById("colorSelect").value,qty=Math.max(1,Number(document.getElementById("qtySelect").value));
-  const msg=`Hello Iqra Collection,\n\nI would like to order:\nProduct: ${p.name}\nSKU: IQ-${String(p.id).padStart(4,"0")}\nProduct Code: ${p.productCode || "MZ2098202790DK"}\nSize: ${size}\nColor: ${color}\nQuantity: ${qty}\nPrice: ${money(p.price*qty)}\nDiscount: ${p.discountPercent || CONFIG.discountPercent}% OFF\n\nPlease confirm availability and delivery details.`;
+  const msg=`Hello Iqra Collection,\n\nI would like to order:\nProduct: ${p.name}\nSKU: IQ-${String(p.id).padStart(4,"0")}\nProduct Code: ${p.productCode || ""}\nSize: ${size}\nColor: ${color}\nQuantity: ${qty}\nPrice: ${money(p.price*qty)}\nDiscount: ${p.discountPercent || CONFIG.discountPercent}% OFF\n\nPlease confirm availability and delivery details.`;
   window.open(waUrl(msg),"_blank");
 }
 function quickWhatsApp(id){
