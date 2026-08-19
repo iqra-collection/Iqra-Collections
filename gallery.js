@@ -10,7 +10,18 @@
     "assets/products/Black Printed Jersey Sleepwear Set (7).jpeg",
     "assets/products/Black Printed Jersey Sleepwear Set (8).jpeg"
   ];
-  const pinkProductImages = ["assets/products/womens-pink-printed-jersey-sleepwear.jpg"];
+
+  // Pink sleepwear product gallery: all supplied product photos.
+  const pinkProductImages = [
+    "assets/products/Women’s Pink Printed Jersey 2-Piece Sleepwear Set (1).jpeg",
+    "assets/products/Women’s Pink Printed Jersey 2-Piece Sleepwear Set (2).jpeg",
+    "assets/products/Women’s Pink Printed Jersey 2-Piece Sleepwear Set (3).jpeg",
+    "assets/products/Women’s Pink Printed Jersey 2-Piece Sleepwear Set (4).jpeg",
+    "assets/products/Women’s Pink Printed Jersey 2-Piece Sleepwear Set (5).jpeg",
+    "assets/products/Women’s Pink Printed Jersey 2-Piece Sleepwear Set (6).jpeg",
+    "assets/products/Women’s Pink Printed Jersey 2-Piece Sleepwear Set (7).jpeg",
+    "assets/products/Women’s Pink Printed Jersey 2-Piece Sleepwear Set (8).jpeg"
+  ];
 
   const style = document.createElement("style");
   style.textContent = `
