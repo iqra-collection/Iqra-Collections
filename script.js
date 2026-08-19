@@ -11,14 +11,27 @@ const CONFIG = {
   }
 };
 
-// Demo catalog removed. Product archives supplied by the store owner are awaiting
-// conversion from .7z to a supported image/ZIP format before their real images,
-// names and supplied final prices can be added.
-const products = [];
+const products = [
+  {
+    id: 1,
+    name: "Black Printed Jersey 2-Piece Sleepwear Set for Girls & Women",
+    category: "Ready To Wear",
+    sub: "Lounge Wear",
+    price: 2500,
+    originalPrice: 2841,
+    discountPercent: 12,
+    img: "assets/products/black-printed-jersey-sleepwear.jpg",
+    sizes: ["Medium", "Large", "Extra Large"],
+    colors: ["Black"],
+    description: "Stay comfortable and stylish with this 2-Piece Printed Jersey Sleepwear Set, designed for girls and women. Made from soft and comfortable jersey fabric, this lounge wear set is perfect for sleeping, relaxing at home, or casual lounging. The set includes a printed round-neck sleep shirt and matching sleep trouser in classic black. Its relaxed fit provides comfort and ease of movement throughout the day or night.\n\nFabric: Soft Jersey\nDesign: Printed\nNeck Type: Round Neck\nColor: Black\nStyle: Lounge Wear / Sleepwear\nSuitable For: Girls & Women\nSet Includes: 1 Sleep Shirt + 1 Sleep Trouser\nProduct Code: MZ2098202790DK\n\nSize Guide:\nMedium — Chest 18 inches, Shirt Length 26 inches\nLarge — Chest 21 inches, Shirt Length 28 inches\nExtra Large — Chest 23 inches, Shirt Length 30 inches",
+    new: true,
+    sale: true
+  }
+];
 
 const CLOTHES_CATEGORIES = {
   "Unstitched": ["Summer", "Embroidered", "Printed", "Lawn", "Bottoms"],
-  "Ready To Wear": ["Embroidered", "Printed", "Solids", "Silk", "Formals", "Kurtis", "Bottoms"],
+  "Ready To Wear": ["Embroidered", "Printed", "Solids", "Silk", "Formals", "Kurtis", "Bottoms", "Lounge Wear"],
   "Co-ords": ["Printed", "Embroidered", "Solids", "Silk", "Lounge Wear"],
   "Western": ["Tops", "Co-ords", "Lounge Wear", "Dresses", "Pants", "Jeans", "Winter"]
 };
@@ -67,14 +80,10 @@ function setClothesCategory(category, btn){
 
 function renderProducts(category="all"){
   const grid = document.getElementById("clothesGrid");
-  if(!products.length){
-    grid.innerHTML = "";
-    document.getElementById("newGrid").innerHTML = "";
-    document.getElementById("sale-products").innerHTML = "";
-    return;
-  }
+  const empty = document.getElementById("emptyProductsMessage");
   const filtered = category === "all" ? products : products.filter(p => p.category === category);
   grid.innerHTML = filtered.map(productCard).join("");
+  if(empty) empty.style.display = filtered.length ? "none" : "block";
   document.getElementById("newGrid").innerHTML = products.filter(p => p.new).map(productCard).join("");
   document.getElementById("sale-products").innerHTML = products.filter(p => p.sale).map(productCard).join("");
 }
@@ -95,7 +104,7 @@ function openProduct(id){
       <h2 class="detail-title">${p.name}</h2>
       <div class="detail-price">${money(p.price)} <span class="old-price">${money(p.originalPrice)}</span></div>
       <p class="discount-note">${p.discountPercent || CONFIG.discountPercent}% OFF</p>
-      <p class="detail-description">${p.description || ""}</p>
+      <p class="detail-description">${(p.description || "").replace(/\n/g,"<br>")}</p>
       <label class="variant-label">Size</label>
       <select id="sizeSelect" class="variant-select">${(p.sizes || ["M"]).map(s=>`<option>${s}</option>`).join("")}</select>
       <label class="variant-label">Color</label>
@@ -121,7 +130,7 @@ function orderFromModal(id){
   const p=products.find(x=>x.id===id);
   if(!p) return;
   const size=document.getElementById("sizeSelect").value,color=document.getElementById("colorSelect").value,qty=Math.max(1,Number(document.getElementById("qtySelect").value));
-  const msg=`Hello Iqra Collection,\n\nI would like to order:\nProduct: ${p.name}\nSKU: IQ-${String(p.id).padStart(4,"0")}\nSize: ${size}\nColor: ${color}\nQuantity: ${qty}\nPrice: ${money(p.price*qty)}\nDiscount: ${p.discountPercent || CONFIG.discountPercent}% OFF\n\nPlease confirm availability and delivery details.`;
+  const msg=`Hello Iqra Collection,\n\nI would like to order:\nProduct: ${p.name}\nSKU: IQ-${String(p.id).padStart(4,"0")}\nProduct Code: ${p.productCode || "MZ2098202790DK"}\nSize: ${size}\nColor: ${color}\nQuantity: ${qty}\nPrice: ${money(p.price*qty)}\nDiscount: ${p.discountPercent || CONFIG.discountPercent}% OFF\n\nPlease confirm availability and delivery details.`;
   window.open(waUrl(msg),"_blank");
 }
 function quickWhatsApp(id){
