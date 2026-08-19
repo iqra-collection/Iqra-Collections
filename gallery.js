@@ -11,6 +11,12 @@
     "assets/products/Black Printed Jersey Sleepwear Set (8).jpeg"
   ];
 
+  const style = document.createElement("style");
+  style.textContent = `
+    .gallery-wrap{min-width:0}.main-product-image{display:block;width:100%;max-height:520px;object-fit:contain;border-radius:14px;background:#f7f3f1}.product-thumbs{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:10px}.product-thumb{border:2px solid transparent;background:#fff;padding:0;border-radius:8px;overflow:hidden;cursor:pointer}.product-thumb.active{border-color:#8b5e5e}.product-thumb img{display:block;width:100%;height:82px;object-fit:cover}.product-detail{display:grid;grid-template-columns:minmax(280px,1fr) minmax(280px,1fr);gap:28px;align-items:start}@media(max-width:760px){.product-detail{grid-template-columns:1fr}.main-product-image{max-height:430px}.product-thumb img{height:70px}}
+  `;
+  document.head.appendChild(style);
+
   const originalOpenProduct = window.openProduct;
   window.openProduct = function (id) {
     const p = products.find(x => x.id === id);
