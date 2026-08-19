@@ -1,6 +1,7 @@
 const CONFIG = {
-  whatsappNumber: "923197556797", // Replace with your WhatsApp number, country code only, no + or spaces.
+  whatsappNumber: "923197556797",
   currency: "PKR",
+  discountPercent: 12,
   bank: {
     name: "YOUR BANK NAME",
     title: "IQRA COLLECTION",
@@ -10,37 +11,33 @@ const CONFIG = {
   }
 };
 
-const products = [
-  {id:1,name:"Embroidered Lawn 3 Piece",category:"Clothes",sub:"Lawn Suits",price:5490,oldPrice:6490,img:"https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=800&q=85",sizes:["S","M","L","XL"],colors:["Rose","Ivory"],description:"Elegant three piece lawn outfit with embroidered details. Replace this demo description with your actual product information.",new:true,sale:true},
-  {id:2,name:"Chikankari Cotton Suit",category:"Clothes",sub:"Chikankari",price:4290,oldPrice:null,img:"https://images.unsplash.com/photo-1595341888016-a392ef81b7de?auto=format&fit=crop&w=800&q=85",sizes:["S","M","L","XL"],colors:["White","Beige"],description:"A refined everyday cotton look. Replace this demo description with your actual product information.",new:true},
-  {id:3,name:"Formal Embroidered Dress",category:"Clothes",sub:"Formal Wear",price:8990,oldPrice:9990,img:"https://images.unsplash.com/photo-1566174053879-31528523f8ae?auto=format&fit=crop&w=800&q=85",sizes:["S","M","L"],colors:["Black","Maroon"],description:"Formal Pakistani inspired outfit for special occasions.",sale:true},
-  {id:4,name:"Classic Ready to Wear",category:"Clothes",sub:"Ready to Wear",price:3890,oldPrice:null,img:"https://images.unsplash.com/photo-1485968579580-b6d095142e6e?auto=format&fit=crop&w=800&q=85",sizes:["S","M","L","XL","XXL"],colors:["Cream","Olive"],description:"A versatile ready to wear look for everyday styling."},
-  {id:5,name:"Printed Lawn 2 Piece",category:"Clothes",sub:"Two Piece Suits",price:3290,oldPrice:3790,img:"https://images.unsplash.com/photo-1596755389378-c31d21fd1273?auto=format&fit=crop&w=800&q=85",sizes:["S","M","L","XL"],colors:["Blue","Pink"],description:"Lightweight printed lawn suit for warm weather.",sale:true},
-  {id:6,name:"Embroidered Kurti",category:"Clothes",sub:"Kurtis",price:2690,oldPrice:null,img:"https://images.unsplash.com/photo-1583391733981-8498a9c0aeb8?auto=format&fit=crop&w=800&q=85",sizes:["S","M","L","XL"],colors:["Black","Rust"],description:"Simple embroidered kurti with an elegant finish.",new:true},
-  {id:7,name:"Bridal Khussa",category:"Shoes",sub:"Khussa",price:4990,oldPrice:5590,img:"https://images.unsplash.com/photo-1534653299134-96a171b61581?auto=format&fit=crop&w=800&q=85",sizes:["36","37","38","39","40"],colors:["Gold","Beige"],description:"Traditional inspired khussa for festive and bridal looks.",sale:true},
-  {id:8,name:"Crystal Party Heels",category:"Shoes",sub:"Heels",price:5990,oldPrice:null,img:"https://images.unsplash.com/photo-1543163521-1bf539c55dd2?auto=format&fit=crop&w=800&q=85",sizes:["36","37","38","39","40"],colors:["Nude","Black"],description:"Elegant heels for parties and formal occasions.",new:true},
-  {id:9,name:"Classic Ladies Flats",category:"Shoes",sub:"Flats",price:2990,oldPrice:3490,img:"https://images.unsplash.com/photo-1543163521-1bf539c55dd2?auto=format&fit=crop&w=800&q=85",sizes:["36","37","38","39","40","41"],colors:["Black","Tan"],description:"Comfortable everyday flats with a clean finish.",sale:true},
-  {id:10,name:"Embroidered Bridal Shoes",category:"Shoes",sub:"Bridal Shoes",price:6990,oldPrice:null,img:"https://images.unsplash.com/photo-1560343090-f0409e92791a?auto=format&fit=crop&w=800&q=85",sizes:["36","37","38","39","40"],colors:["Gold","Silver"],description:"Statement footwear for weddings and festive events.",new:true},
-  {id:11,name:"Everyday Sandals",category:"Shoes",sub:"Sandals",price:2490,oldPrice:null,img:"https://images.unsplash.com/photo-1562273138-f46be4ebdf33?auto=format&fit=crop&w=800&q=85",sizes:["36","37","38","39","40"],colors:["Tan","Black"],description:"Easy everyday sandals designed for comfort."},
-  {id:12,name:"Minimal Sneakers",category:"Shoes",sub:"Sneakers",price:3490,oldPrice:3990,img:"https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=800&q=85",sizes:["36","37","38","39","40","41"],colors:["White","Black"],description:"Clean casual sneakers for everyday outfits.",sale:true}
-];
+// Demo catalog removed. Product archives supplied by the store owner are awaiting
+// conversion from .7z to a supported image/ZIP format before their real images,
+// names and supplied final prices can be added.
+const products = [];
+
+const CLOTHES_CATEGORIES = {
+  "Unstitched": ["Summer", "Embroidered", "Printed", "Lawn", "Bottoms"],
+  "Ready To Wear": ["Embroidered", "Printed", "Solids", "Silk", "Formals", "Kurtis", "Bottoms"],
+  "Co-ords": ["Printed", "Embroidered", "Solids", "Silk", "Lounge Wear"],
+  "Western": ["Tops", "Co-ords", "Lounge Wear", "Dresses", "Pants", "Jeans", "Winter"]
+};
 
 let cart = JSON.parse(localStorage.getItem("iqraCart") || "[]");
-
 const money = n => `${CONFIG.currency} ${Number(n).toLocaleString("en-PK")}`;
 const waUrl = message => `https://wa.me/${CONFIG.whatsappNumber}?text=${encodeURIComponent(message)}`;
 
 function productCard(p){
-  const discount = p.oldPrice ? Math.round((1 - p.price / p.oldPrice) * 100) : 0;
+  const discount = p.discountPercent || CONFIG.discountPercent;
   return `<article class="product-card">
     <div class="product-image">
-      ${p.oldPrice ? `<span class="badge">${discount}% OFF</span>` : p.new ? `<span class="badge">NEW</span>` : ""}
+      <span class="badge">${discount}% OFF</span>
       <img src="${p.img}" alt="${p.name}" loading="lazy">
     </div>
     <div class="product-info">
-      <div class="product-category">${p.category} · ${p.sub}</div>
+      <div class="product-category">${p.category} · ${p.sub || ""}</div>
       <div class="product-name">${p.name}</div>
-      <div class="price">${money(p.price)} ${p.oldPrice ? `<span class="old-price">${money(p.oldPrice)}</span>` : ""}</div>
+      <div class="price">${money(p.price)} <span class="old-price">${money(p.originalPrice)}</span></div>
       <div class="product-actions">
         <button onclick="openProduct(${p.id})">View</button>
         <button onclick="quickWhatsApp(${p.id})">WhatsApp</button>
@@ -49,38 +46,60 @@ function productCard(p){
   </article>`;
 }
 
+function categoryButtons(){
+  let html = `<button class="filter-btn active" onclick="setClothesCategory('all',this)">All</button>`;
+  for(const category of Object.keys(CLOTHES_CATEGORIES)){
+    html += `<button class="filter-btn" onclick="setClothesCategory('${category}',this)">${category}</button>`;
+  }
+  return html;
+}
+
+function setClothesCategory(category, btn){
+  const buttons = document.querySelectorAll("#clothesFilters .filter-btn");
+  buttons.forEach(b => b.classList.remove("active"));
+  if(btn) btn.classList.add("active");
+  else {
+    const match = [...buttons].find(b => b.textContent === category);
+    if(match) match.classList.add("active");
+  }
+  renderProducts(category);
+}
+
+function renderProducts(category="all"){
+  const grid = document.getElementById("clothesGrid");
+  if(!products.length){
+    grid.innerHTML = "";
+    document.getElementById("newGrid").innerHTML = "";
+    document.getElementById("sale-products").innerHTML = "";
+    return;
+  }
+  const filtered = category === "all" ? products : products.filter(p => p.category === category);
+  grid.innerHTML = filtered.map(productCard).join("");
+  document.getElementById("newGrid").innerHTML = products.filter(p => p.new).map(productCard).join("");
+  document.getElementById("sale-products").innerHTML = products.filter(p => p.sale).map(productCard).join("");
+}
+
 function render(){
-  document.getElementById("clothesGrid").innerHTML = products.filter(p=>p.category==="Clothes").slice(0,8).map(productCard).join("");
-  document.getElementById("shoesGrid").innerHTML = products.filter(p=>p.category==="Shoes").slice(0,8).map(productCard).join("");
-  document.getElementById("newGrid").innerHTML = products.filter(p=>p.new).map(productCard).join("");
-  document.getElementById("sale-products").innerHTML = products.filter(p=>p.sale).map(productCard).join("");
-  document.getElementById("clothesFilters").innerHTML = makeFilters("Clothes");
-  document.getElementById("shoesFilters").innerHTML = makeFilters("Shoes");
+  document.getElementById("clothesFilters").innerHTML = categoryButtons();
+  renderProducts("all");
   updateCart();
 }
-function makeFilters(category){
-  const subs=[...new Set(products.filter(p=>p.category===category).map(p=>p.sub))];
-  return `<button class="filter-btn active" onclick="filterProducts('${category}','all',this)">All</button>`+
-    subs.map(s=>`<button class="filter-btn" onclick="filterProducts('${category}','${s.replaceAll("'","\\'")}',this)">${s}</button>`).join("");
-}
-function filterProducts(category,sub,btn){
-  btn.parentElement.querySelectorAll(".filter-btn").forEach(b=>b.classList.remove("active"));btn.classList.add("active");
-  const target=category==="Clothes"?"clothesGrid":"shoesGrid";
-  document.getElementById(target).innerHTML=products.filter(p=>p.category===category&&(sub==="all"||p.sub===sub)).map(productCard).join("");
-}
+
 function openProduct(id){
-  const p=products.find(x=>x.id===id);
-  document.getElementById("productModalContent").innerHTML=`<div class="product-detail">
+  const p = products.find(x => x.id === id);
+  if(!p) return;
+  document.getElementById("productModalContent").innerHTML = `<div class="product-detail">
     <img src="${p.img}" alt="${p.name}">
     <div>
-      <div class="eyebrow">${p.category} · ${p.sub}</div>
+      <div class="eyebrow">${p.category} · ${p.sub || ""}</div>
       <h2 class="detail-title">${p.name}</h2>
-      <div class="detail-price">${money(p.price)} ${p.oldPrice?`<span class="old-price">${money(p.oldPrice)}</span>`:""}</div>
-      <p class="detail-description">${p.description}</p>
+      <div class="detail-price">${money(p.price)} <span class="old-price">${money(p.originalPrice)}</span></div>
+      <p class="discount-note">${p.discountPercent || CONFIG.discountPercent}% OFF</p>
+      <p class="detail-description">${p.description || ""}</p>
       <label class="variant-label">Size</label>
-      <select id="sizeSelect" class="variant-select">${p.sizes.map(s=>`<option>${s}</option>`).join("")}</select>
+      <select id="sizeSelect" class="variant-select">${(p.sizes || ["M"]).map(s=>`<option>${s}</option>`).join("")}</select>
       <label class="variant-label">Color</label>
-      <select id="colorSelect" class="variant-select">${p.colors.map(c=>`<option>${c}</option>`).join("")}</select>
+      <select id="colorSelect" class="variant-select">${(p.colors || ["As shown"]).map(c=>`<option>${c}</option>`).join("")}</select>
       <label class="variant-label">Quantity</label>
       <input id="qtySelect" class="variant-select" type="number" min="1" value="1">
       <div class="detail-buttons">
@@ -94,17 +113,21 @@ function openProduct(id){
 function closeProduct(){document.getElementById("productModal").classList.add("hidden")}
 function addFromModal(id){
   const p=products.find(x=>x.id===id);
+  if(!p) return;
   const size=document.getElementById("sizeSelect").value,color=document.getElementById("colorSelect").value,qty=Math.max(1,Number(document.getElementById("qtySelect").value));
   addToCart(p,size,color,qty);closeProduct();openCart();
 }
 function orderFromModal(id){
-  const p=products.find(x=>x.id===id),size=document.getElementById("sizeSelect").value,color=document.getElementById("colorSelect").value,qty=Math.max(1,Number(document.getElementById("qtySelect").value));
-  const msg=`Hello Iqra Collection,\n\nI would like to order:\nProduct: ${p.name}\nSKU: IQ-${String(p.id).padStart(4,"0")}\nSize: ${size}\nColor: ${color}\nQuantity: ${qty}\nPrice: ${money(p.price*qty)}\n\nPlease confirm availability and delivery details.`;
+  const p=products.find(x=>x.id===id);
+  if(!p) return;
+  const size=document.getElementById("sizeSelect").value,color=document.getElementById("colorSelect").value,qty=Math.max(1,Number(document.getElementById("qtySelect").value));
+  const msg=`Hello Iqra Collection,\n\nI would like to order:\nProduct: ${p.name}\nSKU: IQ-${String(p.id).padStart(4,"0")}\nSize: ${size}\nColor: ${color}\nQuantity: ${qty}\nPrice: ${money(p.price*qty)}\nDiscount: ${p.discountPercent || CONFIG.discountPercent}% OFF\n\nPlease confirm availability and delivery details.`;
   window.open(waUrl(msg),"_blank");
 }
 function quickWhatsApp(id){
   const p=products.find(x=>x.id===id);
-  window.open(waUrl(`Hello Iqra Collection,\n\nI am interested in:\nProduct: ${p.name}\nSKU: IQ-${String(p.id).padStart(4,"0")}\nPrice: ${money(p.price)}\n\nPlease confirm availability, sizes, colors and delivery details.`),"_blank");
+  if(!p) return;
+  window.open(waUrl(`Hello Iqra Collection,\n\nI am interested in:\nProduct: ${p.name}\nSKU: IQ-${String(p.id).padStart(4,"0")}\nPrice: ${money(p.price)}\nDiscount: ${p.discountPercent || CONFIG.discountPercent}% OFF\n\nPlease confirm availability, sizes, colors and delivery details.`),"_blank");
 }
 function addToCart(p,size,color,qty){
   const key=`${p.id}-${size}-${color}`,existing=cart.find(i=>i.key===key);
@@ -159,17 +182,8 @@ document.getElementById("drawerBackdrop").onclick=closeCart;
 document.getElementById("whatsappCart").onclick=cartWhatsApp;
 document.getElementById("bankInfoBtn").onclick=bankInfo;
 document.querySelector(".menu-toggle").onclick=()=>document.getElementById("mobileNav").classList.toggle("open");
-document.querySelectorAll(".mobile-nav a").forEach(a=>a.onclick=()=>document.getElementById("mobileNav").classList.remove("open"));
-
-document.getElementById("searchInput").addEventListener("input",e=>{
-  const q=e.target.value.toLowerCase().trim();
-  document.getElementById("searchResults").innerHTML=q?products.filter(p=>(p.name+" "+p.category+" "+p.sub+" "+p.colors.join(" ")).toLowerCase().includes(q)).map(productCard).join(""):`<p class="small">Start typing to search.</p>`;
-});
-document.getElementById("contactWhatsApp").href=waUrl("Hello Iqra Collection, I would like to ask about your products.");
 document.getElementById("floatingWhatsApp").href=waUrl("Hello Iqra Collection, I would like to know more about your products.");
-document.getElementById("contactForm").addEventListener("submit",e=>{
-  e.preventDefault();
-  const n=document.getElementById("contactName").value,m=document.getElementById("contactMessage").value;
-  window.open(waUrl(`Hello Iqra Collection,\n\nName: ${n}\nMessage: ${m}`),"_blank");
-});
+document.getElementById("contactWhatsApp").href=waUrl("Hello Iqra Collection, I would like to know more about your products.");
+document.getElementById("contactForm").addEventListener("submit",e=>{e.preventDefault();const n=document.getElementById("contactName").value,m=document.getElementById("contactMessage").value;window.open(waUrl(`Hello Iqra Collection,\n\nName: ${n}\nMessage: ${m}`),"_blank")});
+document.getElementById("searchInput").addEventListener("input",e=>{const q=e.target.value.toLowerCase().trim();document.getElementById("searchResults").innerHTML=products.filter(p=>`${p.name} ${p.category} ${p.sub||""}`.toLowerCase().includes(q)).map(productCard).join("")});
 render();
