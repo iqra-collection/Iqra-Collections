@@ -10,6 +10,7 @@
     "assets/products/Black Printed Jersey Sleepwear Set (7).jpeg",
     "assets/products/Black Printed Jersey Sleepwear Set (8).jpeg"
   ];
+  const pinkProductImages = ["assets/products/womens-pink-printed-jersey-sleepwear.jpg"];
 
   const style = document.createElement("style");
   style.textContent = `
@@ -21,13 +22,13 @@
   window.openProduct = function (id) {
     const p = products.find(x => x.id === id);
     if (!p) return originalOpenProduct(id);
-    const images = p.id === 1 ? galleryImages : [p.img];
+    const images = p.id === 1 ? galleryImages : (p.id === 2 ? pinkProductImages : [p.img]);
     document.getElementById("productModalContent").innerHTML = `
       <div class="product-detail">
         <div class="gallery-wrap">
           <img id="mainProductImage" class="main-product-image" src="${images[0]}" alt="${p.name}">
           <div class="product-thumbs">
-            ${images.map((src, i) => `<button class="product-thumb ${i === 0 ? 'active' : ''}" onclick="selectProductImage(${i})"><img src="${src}" alt="${p.name} image ${i + 1}"></button>`).join("")}
+            ${images.map((src, i) => `<button class="product-thumb ${i === 0 ? 'active' : ''}" onclick="selectProductImage(${i},${p.id})"><img src="${src}" alt="${p.name} image ${i + 1}"></button>`).join("")}
           </div>
         </div>
         <div>
@@ -51,10 +52,11 @@
     document.getElementById("productModal").classList.remove("hidden");
   };
 
-  window.selectProductImage = function (index) {
-    const src = galleryImages[index];
+  window.selectProductImage = function (index, productId) {
+    const images = productId === 1 ? galleryImages : (productId === 2 ? pinkProductImages : []);
+    const src = images[index];
     const main = document.getElementById("mainProductImage");
-    if (main) main.src = src;
+    if (main && src) main.src = src;
     document.querySelectorAll(".product-thumb").forEach((b, i) => b.classList.toggle("active", i === index));
   };
 })();
