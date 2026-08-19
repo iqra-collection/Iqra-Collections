@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Iqra Collection, Pakistani dresses and ladies shoes. Shop online or order directly through WhatsApp.">
+  <meta name="description" content="Iqra Collection - Pakistani women's fashion.">
   <meta name="theme-color" content="#8b5e5e">
-  <title>Iqra Collection | Pakistani Fashion & Shoes</title>
+  <title>Iqra Collection | Women's Fashion</title>
   <link rel="icon" href="assets/logo.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,7 +13,7 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div class="announcement">Free delivery offer available on selected orders · Order directly through WhatsApp</div>
+  <div class="announcement">12% OFF selected Iqra Collection styles · Order directly through WhatsApp</div>
 
   <header class="site-header">
     <div class="container header-inner">
@@ -25,7 +25,6 @@
       <nav class="desktop-nav">
         <a href="#home">Home</a>
         <a href="#clothes">Clothes</a>
-        <a href="#shoes">Shoes</a>
         <a href="#new">New Arrivals</a>
         <a href="#sale">Sale</a>
         <a href="#about">About</a>
@@ -39,7 +38,6 @@
     <div id="mobileNav" class="mobile-nav">
       <a href="#home">Home</a>
       <a href="#clothes">Clothes</a>
-      <a href="#shoes">Shoes</a>
       <a href="#new">New Arrivals</a>
       <a href="#sale">Sale</a>
       <a href="#about">About</a>
@@ -50,17 +48,17 @@
   <main id="home">
     <section class="hero">
       <div class="hero-content container">
-        <p class="eyebrow">PAKISTANI FASHION & FOOTWEAR</p>
+        <p class="eyebrow">PAKISTANI WOMEN'S FASHION</p>
         <h1>Style made for<br><span>your everyday.</span></h1>
-        <p>Discover elegant Pakistani dresses and beautiful footwear, selected for modern wardrobes.</p>
+        <p>Discover elegant women's clothing across unstitched, ready-to-wear, co-ords and western collections.</p>
         <div class="hero-buttons">
           <a class="btn btn-dark" href="#clothes">Shop Clothes</a>
-          <a class="btn btn-light" href="#shoes">Shop Shoes</a>
+          <a class="btn btn-light" href="#categories">Browse Categories</a>
         </div>
       </div>
     </section>
 
-    <section class="section container">
+    <section id="categories" class="section container">
       <div class="section-heading">
         <div>
           <p class="eyebrow">EXPLORE</p>
@@ -68,11 +66,17 @@
         </div>
       </div>
       <div class="category-grid">
-        <a class="category-card clothes-card" href="#clothes">
-          <div><p>Elegant Pakistani</p><h3>Clothes</h3><span>Explore collection →</span></div>
+        <a class="category-card clothes-card" href="#clothes" onclick="setClothesCategory('Unstitched');return true;">
+          <div><p>Traditional fabrics</p><h3>Unstitched</h3><span>Explore collection →</span></div>
         </a>
-        <a class="category-card shoes-card" href="#shoes">
-          <div><p>Step into style</p><h3>Shoes</h3><span>Explore collection →</span></div>
+        <a class="category-card clothes-card" href="#clothes" onclick="setClothesCategory('Ready To Wear');return true;">
+          <div><p>Easy everyday style</p><h3>Ready To Wear</h3><span>Explore collection →</span></div>
+        </a>
+        <a class="category-card clothes-card" href="#clothes" onclick="setClothesCategory('Co-ords');return true;">
+          <div><p>Matching looks</p><h3>Co-ords</h3><span>Explore collection →</span></div>
+        </a>
+        <a class="category-card clothes-card" href="#clothes" onclick="setClothesCategory('Western');return true;">
+          <div><p>Modern wardrobe</p><h3>Western</h3><span>Explore collection →</span></div>
         </a>
       </div>
     </section>
@@ -82,25 +86,18 @@
         <div class="section-heading">
           <div>
             <p class="eyebrow">IQRA COLLECTION</p>
-            <h2>Pakistani dresses</h2>
+            <h2>Women's clothing</h2>
           </div>
-          <a href="#all-products" class="text-link">View all →</a>
+          <span class="text-link">Updated categories</span>
         </div>
         <div id="clothesFilters" class="filter-row"></div>
         <div id="clothesGrid" class="product-grid"></div>
-      </div>
-    </section>
-
-    <section id="shoes" class="section container">
-      <div class="section-heading">
-        <div>
-          <p class="eyebrow">FOOTWEAR</p>
-          <h2>Complete your look</h2>
+        <div id="emptyProductsMessage" class="empty-products">
+          <p class="eyebrow">PRODUCTS COMING NEXT</p>
+          <h3>Your Iqra Collection products will appear here.</h3>
+          <p>The previous demo products have been removed. Your supplied product images and prices will be added after the product archives are converted to a supported image/ZIP format.</p>
         </div>
-        <a href="#all-products" class="text-link">View all →</a>
       </div>
-      <div id="shoesFilters" class="filter-row"></div>
-      <div id="shoesGrid" class="product-grid"></div>
     </section>
 
     <section id="new" class="section soft-bg">
@@ -115,20 +112,20 @@
     <section id="sale" class="section container">
       <div class="sale-banner">
         <div>
-          <p class="eyebrow">LIMITED OFFERS</p>
-          <h2>Selected styles at special prices.</h2>
-          <p>Check our sale collection and order your favorite pieces through WhatsApp.</p>
+          <p class="eyebrow">12% DISCOUNT</p>
+          <h2>Special prices on selected styles.</h2>
+          <p>Your supplied prices will be displayed as the final prices after a 12% discount, with the original price crossed out.</p>
         </div>
-        <a class="btn btn-dark" href="#sale-products">Shop sale</a>
+        <a class="btn btn-dark" href="#clothes">Shop collection</a>
       </div>
       <div id="sale-products" class="product-grid sale-grid"></div>
     </section>
 
     <section class="trust-section">
       <div class="container trust-grid">
-        <div><span>01</span><h3>Quality selection</h3><p>Curated fashion and footwear for your wardrobe.</p></div>
+        <div><span>01</span><h3>Quality selection</h3><p>Curated Pakistani women's fashion for your wardrobe.</p></div>
         <div><span>02</span><h3>WhatsApp ordering</h3><p>Choose your product and send the order directly to us.</p></div>
-        <div><span>03</span><h3>Secure checkout</h3><p>Online payment options can be connected as your provider supports them.</p></div>
+        <div><span>03</span><h3>Clear pricing</h3><p>Final prices and the 12% discount will be shown clearly.</p></div>
         <div><span>04</span><h3>Customer support</h3><p>Contact us for sizes, availability and delivery questions.</p></div>
       </div>
     </section>
@@ -139,7 +136,7 @@
         <h2>Welcome to Iqra Collection</h2>
       </div>
       <div>
-        <p>Iqra Collection brings Pakistani fashion and footwear together in one simple online shopping experience. Browse the collection, select your size and color, and order through WhatsApp.</p>
+        <p>Iqra Collection brings Pakistani women's fashion together in one simple online shopping experience. Browse categories, select your product and order through WhatsApp.</p>
         <p>We are building this store to make fashion shopping easier for customers across Pakistan and beyond.</p>
       </div>
     </section>
@@ -167,9 +164,9 @@
       <div>
         <img src="assets/logo.png" alt="Iqra Collection" class="footer-logo">
         <h3>IQRA COLLECTION</h3>
-        <p>Pakistani fashion & footwear.</p>
+        <p>Pakistani women's fashion.</p>
       </div>
-      <div><h4>Shop</h4><a href="#clothes">Clothes</a><a href="#shoes">Shoes</a><a href="#new">New Arrivals</a><a href="#sale">Sale</a></div>
+      <div><h4>Shop</h4><a href="#clothes">Clothes</a><a href="#new">New Arrivals</a><a href="#sale">Sale</a></div>
       <div><h4>Help</h4><a href="mailto:iqra.collections.pk@gmail.com">iqra.collections.pk@gmail.com</a><a href="#contact">Contact</a><a href="#" onclick="showPolicy('shipping');return false;">Shipping Policy</a><a href="#" onclick="showPolicy('returns');return false;">Returns</a><a href="#" onclick="showPolicy('privacy');return false;">Privacy</a></div>
       <div><h4>Payments</h4><p>Debit / Credit Card</p><p>Apple Pay*</p><p>Easypaisa*</p><p>JazzCash*</p><p>Bank Transfer</p><small>* Availability depends on your payment provider and setup.</small></div>
     </div>
@@ -182,7 +179,7 @@
     <div class="overlay-box">
       <button class="close-btn" id="closeSearch">×</button>
       <h2>Search Iqra Collection</h2>
-      <input id="searchInput" type="search" placeholder="Search dresses, shoes, khussa...">
+      <input id="searchInput" type="search" placeholder="Search dresses, suits, co-ords...">
       <div id="searchResults" class="product-grid"></div>
     </div>
   </div>
